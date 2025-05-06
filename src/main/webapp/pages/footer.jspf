@@ -1,0 +1,133 @@
+<!-- Footer HTML Structure -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img src="${pageContext.request.contextPath}/image/logo.png" alt="Taste of Nepal" class="footer-logo">
+      <img src="${pageContext.request.contextPath}/image/chef.png" class="chef" alt="Chef Image">
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/recipes">Recipes</a></li>
+        <li><a href="${pageContext.request.contextPath}/about">About Us</a></li>
+        <li><a href="${pageContext.request.contextPath}/reviews/submit">Submit Reviews</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact Info</h4>
+      <ul>
+        <li>Email: <a href="mailto:Tasteofnepal@gmail.com">Tasteofnepal@gmail.com</a></li>
+        <li>Phone: 061-12345</li>
+        <li>Address: Pokhara, Kaski</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 MyRecipeSite. Built with <span class="heart">❤</span> in Nepal.
+  </div>
+</footer>
+
+<style>
+/* Ensure footer stays at bottom */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto; /* This makes the content area expand to push footer down */
+}
+
+/* Footer styling */
+.site-footer {
+  background: linear-gradient(to right, #fff3e1, #fff8e8);
+  padding: 30px 24px 15px;
+  border-top: 2px solid #e6d5b8;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin-top: auto; /* Pushes footer to bottom */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Brand section */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.chef {
+  width: 200px;
+  margin-top: 10px;
+  transition: transform 0.3s ease;
+}
+
+.chef:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Links and contact styling */
+.footer-links h4, .footer-contact h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: #4a6741;
+  border-bottom: 2px solid #e6d5b8;
+  padding-bottom: 5px;
+}
+
+.footer-links ul, .footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li, .footer-contact li {
+  margin-bottom: 8px;
+}
+
+.footer-links a, .footer-contact a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover, .footer-contact a:hover {
+  color: #4a6741;
+  text-decoration: underline;
+}
+
+/* Footer bottom */
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #e6d5b8;
+  font-size: 14px;
+}

@@ -1,0 +1,54 @@
+<header class="navbar">
+    <img src="${pageContext.request.contextPath}/image/logo.png" alt="Taste of Nepal" class="logo">
+  <nav>
+    <a href="${pageContext.request.contextPath}/products">Product</a>
+    <a href="${pageContext.request.contextPath}/reviews">Review</a>
+    <a href="${pageContext.request.contextPath}/users">Users</a>
+  </nav>
+  <form action="${pageContext.request.contextPath}/logout" method="post">
+    <button class="btn">Log Out</button>
+  </form>
+</header>
+
+<style>
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: linear-gradient(to right, #fff3e1, #fff8e8);
+  border-bottom: 2px solid #e6d5b8;
+}
+
+.logo {height: 45px;}
+.logo:hover {transform: scale(1.05);}
+
+nav {
+  display: flex;
+  gap: 30px;
+  margin: 0 20px;
+}
+
+nav a {
+  color: #333;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  color: #4a6741;
+  border-bottom-color: #4a6741;
+}
+
+.btn {
+  background: #4a6741;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn:hover {background: #3a5331;}
+</style>

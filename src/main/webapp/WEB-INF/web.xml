@@ -1,0 +1,19 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.tasteofnepal.controller.LoginFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/pages/*</url-pattern> <!-- Filters everything inside /pages/ -->
+</filter-mapping>
+
+    <!-- Other servlet configurations here -->
+
+</web-app>
