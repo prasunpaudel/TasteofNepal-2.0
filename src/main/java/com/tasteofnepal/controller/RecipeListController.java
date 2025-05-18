@@ -14,13 +14,10 @@ import com.tasteofnepal.controller.dao.RecipeDAO;
 import com.tasteofnepal.model.Recipe;
 
 @WebServlet("/recipes")
-public class RecipeController extends HttpServlet {
-    /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+public class RecipeListController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-	@Override
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -31,6 +28,7 @@ public class RecipeController extends HttpServlet {
             dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendError(500, "Internal server error");
         }
     }
 }

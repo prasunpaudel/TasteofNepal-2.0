@@ -1,12 +1,16 @@
 package com.tasteofnepal.controller;
 
-import com.tasteofnepal.controller.dao.UserDAO;
-import com.tasteofnepal.model.User;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.tasteofnepal.controller.dao.UserDAO;
+import com.tasteofnepal.model.User;
 
 @WebServlet("/RegisterController")
 public class RegisterController extends HttpServlet {
@@ -43,7 +47,7 @@ public class RegisterController extends HttpServlet {
 		User user = new User();
 		user.setName(username);
 		user.setEmail(email);
-		user.setPassword(password); 
+		user.setPassword(password);
 		user.setRole("user");
 
 		UserDAO userDAO = new UserDAO();

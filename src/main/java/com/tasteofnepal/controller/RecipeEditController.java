@@ -1,7 +1,6 @@
 package com.tasteofnepal.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,24 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 import com.tasteofnepal.controller.dao.RecipeDAO;
 import com.tasteofnepal.model.Recipe;
 
-@WebServlet("/recipes")
-public class RecipeController extends HttpServlet {
-    /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+@WebServlet("/recipes/edit")
+public class RecipeEditController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-	@Override
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            int id = Integer.parseInt(request.getParameter("id"));
             RecipeDAO dao = new RecipeDAO();
-            List<Recipe> recipeList = dao.getAllRecipes();
-            request.setAttribute("recipeList", recipeList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/list-recipes.jsp");
+            Recipe recipe = dao.getRecipe(id);
+
+            if (recipe == null) {
+                response.sendRedirect(request.getContextPath() + "/recipes");
+                return;
+            }
+
+            request.setAttribute("recipe", recipe);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/edit-recipe.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/recipes");
         }
     }
 }

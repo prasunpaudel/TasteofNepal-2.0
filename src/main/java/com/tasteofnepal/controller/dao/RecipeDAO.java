@@ -1,15 +1,21 @@
 package com.tasteofnepal.controller.dao;
 
-import com.tasteofnepal.model.Recipe;
-import com.tasteofnepal.controller.database.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.sql.*;
-import java.util.*;
+import com.tasteofnepal.controller.database.DatabaseConnection;
+import com.tasteofnepal.model.Recipe;
 
 public class RecipeDAO {
 
     public List<Recipe> getAllRecipes() throws SQLException, ClassNotFoundException {
         List<Recipe> list = new ArrayList<>();
+        System.out.println("Servlet triggered");
         String sql = "SELECT * FROM recipes";
 
         try (Connection conn = DatabaseConnection.getConnection();
