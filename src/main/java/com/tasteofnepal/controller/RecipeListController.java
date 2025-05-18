@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tasteofnepal.controller.dao.RecipeDAO;
 import com.tasteofnepal.model.Recipe;
 
-@WebServlet("/recipes")
+@WebServlet("/recipelist")
 public class RecipeListController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
