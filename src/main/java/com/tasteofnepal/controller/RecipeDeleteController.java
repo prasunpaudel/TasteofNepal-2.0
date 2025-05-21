@@ -1,29 +1,38 @@
 package com.tasteofnepal.controller;
 
-import java.io.IOException;
-
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tasteofnepal.controller.dao.RecipeDAO;
 
-@WebServlet("/recipes/delete")
-public class RecipeDeleteController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
 
-    @Override
+@WebServlet("/admin/delete-recipe")
+public class RecipeDeleteController extends HttpServlet {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int recipeId = Integer.parseInt(request.getParameter("id"));
+
             RecipeDAO dao = new RecipeDAO();
-            dao.deleteRecipe(id);
-            response.sendRedirect(request.getContextPath() + "/recipes");
+            boolean success = dao.deleteRecipe(recipeId);
+
+            if (success) {
+                response.sendRedirect("recipe-list");
+            } else {
+                request.setAttribute("errorMessage", "Failed to delete recipe.");
+                request.getRequestDispatcher("/admin/recipe-list.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/recipes");
+            request.setAttribute("errorMessage", "Error occurred: " + e.getMessage());
+            request.getRequestDispatcher("/admin/recipe-list.jsp").forward(request, response);
         }
     }
 }

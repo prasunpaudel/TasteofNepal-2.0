@@ -3,6 +3,8 @@ package com.tasteofnepal.model;
 public class Recipe {
     private int id;
     private String name;
+    private String category;
+    private String imagePath;
     private int prepTime;
     private int additionalTime;
     private int totalTime;
@@ -11,9 +13,13 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(int id, String name, int prepTime, int additionalTime, int totalTime, int serving, String yieldDescription) {
+    public Recipe(int id, String name, String category, String imagePath,
+                  int prepTime, int additionalTime, int totalTime,
+                  int serving, String yieldDescription) {
         this.id = id;
         this.name = name;
+        this.category = category;
+        this.imagePath = imagePath;
         this.prepTime = prepTime;
         this.additionalTime = additionalTime;
         this.totalTime = totalTime;
@@ -21,21 +27,18 @@ public class Recipe {
         this.yieldDescription = yieldDescription;
     }
 
-    public Recipe(String name, int prepTime, int additionalTime, int totalTime, int serving, String yieldDescription) {
-        this.name = name;
-        this.prepTime = prepTime;
-        this.additionalTime = additionalTime;
-        this.totalTime = totalTime;
-        this.serving = serving;
-        this.yieldDescription = yieldDescription;
-    }
-
-    // Getters and Setters
+    // Getters and setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
     public int getPrepTime() { return prepTime; }
     public void setPrepTime(int prepTime) { this.prepTime = prepTime; }

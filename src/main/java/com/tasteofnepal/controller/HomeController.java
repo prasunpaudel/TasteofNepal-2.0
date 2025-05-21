@@ -9,8 +9,8 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/recipe-list")
-public class RecipeListController extends HttpServlet {
+@WebServlet("/client/home")
+public class HomeController extends HttpServlet {
     /**
 	 * 
 	 */
@@ -29,6 +29,6 @@ public class RecipeListController extends HttpServlet {
 		}
 
         request.setAttribute("recipes", recipes);
-        request.getRequestDispatcher("/admin/recipe-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/client/home.jsp").forward(request, response);
     }
 }
