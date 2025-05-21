@@ -1,5 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%
+    if (request.getAttribute("categoryMap") == null) {
+        response.sendRedirect(request.getContextPath() + "/client/home");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +52,10 @@
             bottom: 0;
             z-index: 1;
         }
+        .search-bar {
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
     </style>
 </head>
 <body>
@@ -59,20 +72,30 @@
         </div>
     </div>
 
+    <!-- Search Bar -->
+    <form method="get" action="${pageContext.request.contextPath}/client/home" class="search-bar">
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" name="search" placeholder="Search for a recipe..." value="${param.search}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
     <!-- Dynamic Category Sections -->
     <c:forEach var="category" items="${categoryMap}">
         <h2 class="section-title text-dark fw-bold">${category.key}</h2>
         <div class="row">
             <c:forEach var="recipe" items="${category.value}">
-                <div class="col-md-4 col-sm-6">
-                    <div class="card food-card">
-                        <img src="${pageContext.request.contextPath}/${recipe.imagePath}" class="card-img-top food-image" alt="${recipe.name}">
-                        <div class="card-body p-2">
-                            <p class="food-title">${recipe.name}</p>
-                            <a href="${pageContext.request.contextPath}/client/see-full-details?id=${recipe.id}" class="stretched-link"></a>
+                <c:if test="${empty param.search || fn:containsIgnoreCase(recipe.name, param.search)}">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card food-card">
+                            <img src="${pageContext.request.contextPath}/${recipe.imagePath}" class="card-img-top food-image" alt="${recipe.name}">
+                            <div class="card-body p-2">
+                                <p class="food-title">${recipe.name}</p>
+                                <a href="${pageContext.request.contextPath}/client/see-full-details?id=${recipe.id}" class="stretched-link"></a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
             </c:forEach>
         </div>
     </c:forEach>
