@@ -17,12 +17,12 @@ public class ReviewController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+		
         int recipeId = Integer.parseInt(request.getParameter("recipeId"));
         int userId = Integer.parseInt(request.getParameter("userId"));
         String description = request.getParameter("description");
 
-        Review review = new Review(recipeId, userId, description);
+		Review review = new Review(0, recipeId, userId, description);
         ReviewDAO dao = new ReviewDAO();
         dao.insert(review);
 

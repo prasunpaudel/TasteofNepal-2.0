@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<!-- Include Admin Navbar -->
+<jsp:include page="navbar.jsp" />
+
+<!-- Main Content -->
 <div class="container mt-5">
     <h2 class="mb-4">All Recipes</h2>
 
@@ -29,7 +34,7 @@
             <tr>
                 <td>${r.id}</td>
                 <td>
-                    <img src="${pageContext.request.contextPath}/image/${fn:substringAfter(r.imagePath, '/image/')}" width="60" height="60"/>
+                    <img src="${pageContext.request.contextPath}/${r.imagePath}" width="60" height="60"/>
                 </td>
                 <td>${r.name}</td>
                 <td>${r.category}</td>
@@ -45,5 +50,10 @@
         </tbody>
     </table>
 </div>
+
+<!-- Include Footer -->
+<jsp:include page="footer.jsp" />
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

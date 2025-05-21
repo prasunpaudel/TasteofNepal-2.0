@@ -10,7 +10,6 @@
             const container = document.getElementById("ingredients-container");
             const row = document.createElement("div");
             row.classList.add("row", "mb-2");
-
             row.innerHTML = `
                 <div class="col-md-6">
                     <input type="text" class="form-control" name="ingredientItem" placeholder="Ingredient Name" required>
@@ -27,6 +26,10 @@
     </script>
 </head>
 <body class="bg-light">
+
+<!-- Admin Navbar -->
+<jsp:include page="navbar.jsp" />
+
 <div class="container mt-5">
     <h2 class="mb-4">Add New Recipe</h2>
 
@@ -106,5 +109,9 @@
         <button type="submit" class="btn btn-primary">Save Recipe</button>
     </form>
 </div>
+
+<!-- Footer -->
+<jsp:include page="footer.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

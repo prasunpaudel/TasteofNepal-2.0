@@ -64,4 +64,32 @@ public class ReviewDAO {
 
         return false;
     }
+    public List<Review> getAllReviewsWithNames() throws ClassNotFoundException {
+        List<Review> reviews = new ArrayList<>();
+        String sql = "SELECT r.id, r.recipe_id, r.user_id, r.description, u.name AS user_name, rec.name AS recipe_name " +
+                     "FROM reviews r " +
+                     "JOIN users u ON r.user_id = u.id " +
+                     "JOIN recipes rec ON r.recipe_id = rec.id";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                reviews.add(new Review(
+                    rs.getInt("id"),
+                    rs.getInt("recipe_id"),
+                    rs.getInt("user_id"),
+                    rs.getString("description"),
+                    rs.getString("user_name"),
+                    rs.getString("recipe_name")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
+
 }
