@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/client/home")
 public class HomeController extends HttpServlet {
@@ -20,15 +20,23 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
 
         RecipeDAO recipeDAO = new RecipeDAO();
-        List<Recipe> recipes = null;
+        List<Recipe> allRecipes = null;
 		try {
-			recipes = recipeDAO.getAllRecipes();
+			allRecipes = recipeDAO.getAllRecipes();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        request.setAttribute("recipes", recipes);
+        // Group recipes by category
+        Map<String, List<Recipe>> categoryMap = new LinkedHashMap<>();
+        for (Recipe r : allRecipes) {
+            categoryMap
+                .computeIfAbsent(r.getCategory(), k -> new ArrayList<>())
+                .add(r);
+        }
+
+        request.setAttribute("categoryMap", categoryMap);
         request.getRequestDispatcher("/client/home.jsp").forward(request, response);
     }
 }
