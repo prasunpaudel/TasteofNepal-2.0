@@ -1,24 +1,16 @@
 package com.tasteofnepal.controller;
 
 import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 public class LoginFilter implements Filter {
 
     @Override
-	public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
@@ -26,29 +18,72 @@ public class LoginFilter implements Filter {
 
         HttpSession session = req.getSession(false);
 
-        boolean loggedIn = (session != null && session.getAttribute("userWithSession") != null);
+        Object userObj = (session != null) ? session.getAttribute("userWithSession") : null;
+        String role = null;
 
-        String loginURI = req.getContextPath() + "/pages/login.jsp";
-        String registerURI = req.getContextPath() + "/pages/register.jsp";
-        String homeURI = req.getContextPath() + "/pages/home.jsp";
+        if (userObj != null) {
+            role = ((com.tasteofnepal.model.User) userObj).getRole();
+        }
 
+        String contextPath = req.getContextPath();
         String requestURI = req.getRequestURI();
 
-        boolean isLoginRequest = requestURI.equals(loginURI);
-        boolean isRegisterRequest = requestURI.equals(registerURI);
+        boolean isAdminPage = requestURI.startsWith(contextPath + "/admin");
+        boolean isReviewSubmit = requestURI.equals(contextPath + "/submitReview");
+        
 
-        if (loggedIn && (isLoginRequest || isRegisterRequest)) {
-            // Redirect logged-in users away from login or register page
-            res.sendRedirect(homeURI);
-        } else if (loggedIn || isLoginRequest || isRegisterRequest) {
-            // Allow access if logged in or trying to log in/register
+        if (role == null) {
+            // Not logged in user
+
+            if (isAdminPage) {
+                // Admin pages require login -> redirect to admin login page or general login page
+                res.sendRedirect(contextPath + "/pages/login.jsp");
+                return;
+            }
+
+            if (isReviewSubmit) {
+                // Review submission requires login
+                res.sendRedirect(contextPath + "/pages/login.jsp");
+                return;
+            }
+
+            // All other client/public pages accessible without login
             chain.doFilter(request, response);
+            return;
+        }
+
+        // User is logged in
+        if ("admin".equals(role)) {
+            // Admin logged in
+
+            if (isAdminPage) {
+                // Admin can access admin pages
+                chain.doFilter(request, response);
+                return;
+            } else {
+                // Admin trying to access client/public pages: deny, redirect to admin home
+                res.sendRedirect(contextPath + "/admin/home.jsp");
+                return;
+            }
+        } else if ("user".equals(role)) {
+            // Normal user logged in
+
+            if (isAdminPage) {
+                // User cannot access admin pages
+                res.sendRedirect(contextPath + "/pages/home.jsp");
+                return;
+            }
+
+            // User can access any client page (including review submission)
+            chain.doFilter(request, response);
+            return;
         } else {
-            // Not logged in and trying to access a protected page
-            res.sendRedirect(loginURI);
+            // Unknown role - redirect to login
+            res.sendRedirect(contextPath + "/pages/login.jsp");
+            return;
         }
     }
 
     @Override
-	public void destroy() {}
+    public void destroy() {}
 }

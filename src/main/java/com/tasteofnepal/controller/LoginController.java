@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
                 session.setMaxInactiveInterval(10 * 60); // 10 minutes
 
                 if ("admin".equals(user.getRole())) {
-                    response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
+                    response.sendRedirect(request.getContextPath() + "/admin/AdminDashboad.jsp");
                 } else {
                     response.sendRedirect(request.getContextPath() + "/client/home");
                 }

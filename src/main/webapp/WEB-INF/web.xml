@@ -3,16 +3,32 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
-
-    <filter>
+<filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.tasteofnepal.controller.LoginFilter</filter-class>
 </filter>
 
 <filter-mapping>
     <filter-name>LoginFilter</filter-name>
-    <url-pattern>/pages/*</url-pattern> <!-- Filters everything inside /pages/ -->
+    <url-pattern>/admin/*</url-pattern>
 </filter-mapping>
+
+<filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/client/*</url-pattern>
+</filter-mapping>
+
+<filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/pages/*</url-pattern>
+</filter-mapping>
+
+<!-- If your submitReview URL is outside these paths, add it here explicitly -->
+<filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/submitReview</url-pattern>
+</filter-mapping>
+
 
     <!-- Other servlet configurations here -->
 
